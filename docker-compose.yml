@@ -1,4 +1,12 @@
-version: '2'
+version: '3.4'
+
+x-common-variables: &common-variables
+  MYSQL_ROOT_PASSWORD: p@ssw0rd
+  MYSQL_DATABASE: tokendb
+  MYSQL_PORT: 3306
+  MYSQL_USER: txnuser
+  MYSQL_PASSWORD: p@ssword
+
 services:
   backend:
     build: .
@@ -7,20 +15,20 @@ services:
     depends_on:
      - db
     environment:
-     - DB_HOST=docker.for.mac.localhost
-    volumes:
-     - ./backend/api:/app/api
+      <<: *common-variables
+      #DB_HOST: "docker.for.mac.localhost"
+
   db:
     image: mysql:5.7
     volumes:
       - db_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+#      - ./sql/init.sql:/data/application/init.sql
     restart: always
     ports:
       - "33306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: p@ssw0rd
-      MYSQL_DATABASE: txndb
-      MYSQL_USER: txnuser
-      MYSQL_PASSWORD: p@ssword
+      <<: *common-variables
+
 volumes:
   db_data: {}

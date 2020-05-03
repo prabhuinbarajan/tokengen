@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-from flask_restful import Resource
+
 from random import randint
+from flask_restplus import Resource, Namespace
+token_ns_v1 = Namespace('tokens', description='Token operations')
 
-
+@token_ns_v1.route('/v1/token')
 class TokenGeneratorV1(Resource):
     def get(self):
         return {'token': self.generate_card("visa16"), "key": "hashashashashas"}
