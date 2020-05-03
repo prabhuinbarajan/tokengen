@@ -1,0 +1,26 @@
+version: '2'
+services:
+  backend:
+    build: .
+    ports:
+     - "5001:5000"
+    depends_on:
+     - db
+    environment:
+     - DB_HOST=docker.for.mac.localhost
+    volumes:
+     - ./backend/api:/app/api
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - "33306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: p@ssw0rd
+      MYSQL_DATABASE: txndb
+      MYSQL_USER: txnuser
+      MYSQL_PASSWORD: p@ssword
+volumes:
+  db_data: {}

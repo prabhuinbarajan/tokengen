@@ -1,15 +1,11 @@
 #!/usr/bin/env python
-from flask import Flask
-from flask_restful import Resource, Api
-
-app = Flask(__name__)
-api = Api(app)
-
+from flask_restful import Resource
 from random import randint
 
-class CardGenerator(Resource):
+
+class TokenGeneratorV1(Resource):
     def get(self):
-        return {'token': self.generate_card("visa16")}
+        return {'token': self.generate_card("visa16"), "key": "hashashashashas"}
 
     def generate_card(self, type):
         """
@@ -86,17 +82,5 @@ class CardGenerator(Resource):
         initial, rem = prefill(t)
         so_far = initial + [randint(1, 9) for x in range(rem - 1)]
         result = finalize(so_far)
-        card="".join(map(str, result))
+        card = "".join(map(str, result))
         return card;
-
-
-
-# run - check
-# card = generate_card("visa13")
-#card = generate_card("visa16")
-#print(card)
-
-api.add_resource(CardGenerator,'/generate')
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
