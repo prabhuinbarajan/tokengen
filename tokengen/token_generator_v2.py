@@ -5,14 +5,11 @@ from datetime import datetime, timedelta
 from distutils.util import strtobool
 
 from flask import request, jsonify
-from flask_restplus import Resource, Namespace, fields,reqparse
+from flask_restplus import Resource, Namespace, fields
 from tokengen.models.models import tokens
-from tokengen.utils import alphanum_token_generator, AlchemyEncoder
+from tokengen.utils import alphanum_token_generator
 
 ns = Namespace('v2/tokens', description='Token operations')
-
-parser = reqparse.RequestParser()
-
 
 token_model = ns.model('Token', {
     'id': fields.String(description='Token Id'),
@@ -47,8 +44,6 @@ class TokenV2List(Resource):
         checksum_length = int(request.args.get('checksum_length'))
         remove_filter = request.args.get('remove_filter')
         numeric_only = strtobool(request.args.get('numeric_only'))
-
-
         key = str(uuid.uuid4());
         upload_token = alphanum_token_generator(base_length=base_length, checksum_length=checksum_length,
                                                 remove_filter=remove_filter, numeric_only=numeric_only);
@@ -65,7 +60,7 @@ class TokenV2List(Resource):
     @ns.doc('request a token')
     @ns.marshal_list_with(token_model)
     @ns.doc(
-        description="issue a token",
+        description="issue a token - Future ",
         responses={
             201: 'Success',
             400: 'Validation Error'
@@ -83,7 +78,7 @@ class TokenV2List(Resource):
 @ns.param('id', 'The token identifier')
 class TokenV2(Resource):
     def get(self):
-        '''get token by id'''
+        '''get token by id  - Future '''
         return {'token': self.generate_token("visa16"), "key": "hashashashashas"}
 
     def generate_token(self, type):
