@@ -6,7 +6,7 @@ from hashlib import sha256
 def alphanum_token_generator(base_length=5, checksum_length=0, remove_filter="", numeric_only=True):
     token_type = string.octdigits;
     if not numeric_only:
-        token_type = token_type + string.ascii_letters;
+        token_type = token_type + string.ascii_uppercase;
 
     if remove_filter and len(remove_filter) > 0 :
         token_type=token_type.translate(str.maketrans('','', ''.join(remove_filter)))

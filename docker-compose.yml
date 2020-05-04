@@ -6,17 +6,19 @@ x-common-variables: &common-variables
   MYSQL_PORT: 3306
   MYSQL_USER: txnuser
   MYSQL_PASSWORD: p@ssword
+  FLASK_APP: ./tokengen/__init__.py
 
 services:
   backend:
     build: .
     ports:
-     - "5001:5000"
+     - "7001:5000"
     depends_on:
      - db
     environment:
       <<: *common-variables
       #DB_HOST: "docker.for.mac.localhost"
+      DB_HOST: db
 
   db:
     image: mysql:5.7
