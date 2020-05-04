@@ -2,11 +2,28 @@
 
 from random import randint
 from flask_restplus import Resource, Namespace
-token_ns_v1 = Namespace('tokens', description='Token operations')
+ns = Namespace('tokens', description='Token operations')
 
-@token_ns_v1.route('/v1/token')
-class TokenGeneratorV1(Resource):
+@ns.route('/v1/token')
+class TokenV1(Resource):
+    @ns.doc(
+        description="get a token",
+        responses={
+            200: 'Success',
+            400: 'Validation Error'
+        }
+    )
     def get(self):
+        return {'token': self.generate_card("visa16"), "key": "hashashashashas"}
+
+    @ns.doc(
+        description="issue a token",
+        responses={
+            201: 'Success',
+            400: 'Validation Error'
+        }
+    )
+    def post(self):
         return {'token': self.generate_card("visa16"), "key": "hashashashashas"}
 
     def generate_card(self, type):

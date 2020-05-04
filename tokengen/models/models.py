@@ -10,7 +10,7 @@ def future():
 
 class tokens(db.Model):
     __tablename__ = 'tokens'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String, primary_key=True)
     token = db.Column(db.String(100))
     crypto_key = db.Column(db.String(100), unique=True)
     key_expiry=db.Column(db.DateTime, default=future)

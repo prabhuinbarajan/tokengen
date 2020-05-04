@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_restplus import Api
 
-from tokengen.token_generator_v1 import token_ns_v1
-from tokengen.token_generator_v2 import token_ns_v2
+from tokengen import token_generator_v1
+from tokengen import token_generator_v2
 from .models.models import db
 from . import config
 
@@ -19,8 +19,9 @@ def create_app():
 
 
 app = create_app()
-api = Api(app=app, doc='/docs')
-api.add_namespace(token_ns_v1)
-api.add_namespace(token_ns_v2)
+api = Api(app=app, doc='/docs', version='1.0', title='Token Issuance API',
+    description='Token Issuance Reference Implementation',)
+#api.add_namespace(token_generator_v1.ns)
+api.add_namespace(token_generator_v2.ns)
 
 
