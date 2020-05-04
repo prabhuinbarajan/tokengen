@@ -35,7 +35,7 @@ class TokenV2List(Resource):
     @ns.param('token_length', 'length of the token', type='int', default=5)
     @ns.param('checksum_length', 'length of checksum', type='int', default=1)
     @ns.param('remove_filter', description='characters to be not used in token generation - default token is made \
-        of [0-7,a-z,A-Z]. remove list should be a subset of these', default=' ')
+        of [0-7,a-z,A-Z]. remove list should be a subset of these', default='1')
     @ns.param('numeric_only', description='numeric only', type='boolean', default=True)
     @ns.expect(validate=True)
     def get(self ):
